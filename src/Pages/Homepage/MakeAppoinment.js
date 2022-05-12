@@ -6,10 +6,10 @@ import PrimaryButton from "../Shared/PrimaryButton";
 const MakeAppoinment = () => {
   return (
     <section
-      className="flex justify-between items-center"
+      className="flex justify-between items-center pt-5 pl-5 pr-5"
       style={{ background: `url(${appointment})` }}
     >
-      <div className="flex-1">
+      <div className="flex-1  hidden lg:block">
         <img src={doctor} alt="doctor" className="mt-[-170px]" />
       </div>
       <div className="flex-1 text-white mt-10">
@@ -23,7 +23,7 @@ const MakeAppoinment = () => {
           look like readable English. Many desktop publishing packages and web
           page
         </p>
-        <div className="flex justify-start mt-5">
+        <div className="flex justify-start my-5">
           <PrimaryButton>GET STARTED</PrimaryButton>
         </div>
       </div>
