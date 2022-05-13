@@ -1,0 +1,66 @@
+[
+  {
+    "id": "627e17041a5998f791ca0c86",
+    "name": "Edwina Rocha",
+    "slots": [
+      "08.00 AM - 08.30 AM",
+      "08.30 AM - 09.00 AM",
+      "09.30 AM - 10.00 AM",
+      "10.30 AM - 11.00 AM",
+      "11.30 AM - 12.00 PM",
+      "12.30 PM - 01.00 PM"
+    ]
+  },
+  {
+    "id": "627e1704def4b223f03a0a43",
+    "name": "Cleo Ortega",
+    "slots": [
+      "08.00 AM - 08.30 AM",
+      "08.30 AM - 09.00 AM",
+      "09.30 AM - 10.00 AM",
+
+      "12.30 PM - 01.00 PM"
+    ]
+  },
+  {
+    "id": "627e1704fa69836d0ff5b102",
+    "name": "Walter Dixon",
+    "slots": [
+      "08.00 AM - 08.30 AM",
+      "08.30 AM - 09.00 AM",
+      "09.30 AM - 10.00 AM",
+      "10.30 AM - 11.00 AM",
+      "11.30 AM - 12.00 PM",
+      "12.30 PM - 01.00 PM"
+    ]
+  },
+  {
+    "id": "627e17042f100db5fa7df2f4",
+    "name": "Allie Merritt",
+    "slots": []
+  },
+  {
+    "id": "627e1704c2e477fd7667505a",
+    "name": "Patty Hubbard",
+    "slots": [
+      "08.00 AM - 08.30 AM",
+      "08.30 AM - 09.00 AM",
+      "09.30 AM - 10.00 AM",
+      "10.30 AM - 11.00 AM",
+      "11.30 AM - 12.00 PM",
+      "12.30 PM - 01.00 PM"
+    ]
+  },
+  {
+    "id": "627e1704dc3110e1cfb16ee9",
+    "name": "Cleveland Velasquez",
+    "slots": [
+      "08.00 AM - 08.30 AM",
+      "08.30 AM - 09.00 AM",
+      "09.30 AM - 10.00 AM",
+      "10.30 AM - 11.00 AM",
+      "11.30 AM - 12.00 PM",
+      "12.30 PM - 01.00 PM"
+    ]
+  }
+]
