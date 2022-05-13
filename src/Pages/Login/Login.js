@@ -1,8 +1,16 @@
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-
+import { useForm } from "react-hook-form";
 const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   if (user) {
     console.log(user);
@@ -12,6 +20,79 @@ const Login = () => {
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title justify-center text-3xl">Login</h2>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="Your Email"
+                class="input input-bordered w-full max-w-xs"
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Email is required!",
+                  },
+                  pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                })}
+              />
+              <label class="label">
+                {errors.email?.type === "required" && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.email.message}
+                  </span>
+                )}
+              </label>
+              <label class="label">
+                {errors.email?.type === "pattern" && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.email.message}
+                  </span>
+                )}
+              </label>
+            </div>
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Password"
+                class="input input-bordered w-full max-w-xs"
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Password is required!",
+                  },
+                  minLength: {
+                    value: 6,
+                    message: "Password must be 6 characters longer or more",
+                  },
+                })}
+              />
+              <label class="label">
+                {errors.password?.type === "required" && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.password.message}
+                  </span>
+                )}
+              </label>
+              <label class="label">
+                {errors.password?.type === "minLength" && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.password.message}
+                  </span>
+                )}
+              </label>
+            </div>
+            <input
+              type="submit"
+              value="LOGIN"
+              className="btn bg-accent text-white w-full max-w-xs"
+            />
+          </form>
           <div className="divider">OR</div>
           <button
             className="btn btn-outline"
