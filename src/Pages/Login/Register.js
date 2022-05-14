@@ -9,7 +9,8 @@ import {
   import auth from "../../firebase.init";
   import { useForm } from "react-hook-form";
   import Loading from "../Shared/Loading";
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
+import { async } from '@firebase/util';
 const Register = () => {
     const [
         createUserWithEmailAndPassword,
@@ -25,9 +26,13 @@ const Register = () => {
       } = useForm();
    
       const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
-      const onSubmit = (data) => {
-        createUserWithEmailAndPassword(data.email,data.password);
+
+      const navigate =useNavigate();
+      const onSubmit = async(data) => {
+        await createUserWithEmailAndPassword(data.email,data.password);
+        await updateProfile({ displayName:data.name });
         console.log(data);
+        navigate('/appoinment');
       };
       let errorMessage;
       if (loading || gloading||updating) {
@@ -142,7 +147,7 @@ const Register = () => {
             {errorMessage}
             <input
               type="submit"
-              value="LOGIN"
+              value="REGISTER"
               className="btn bg-accent text-white w-full max-w-xs"
             />
           </form>
