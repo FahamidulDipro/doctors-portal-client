@@ -6,9 +6,12 @@ import {
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const navigte = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     formState: { errors },
@@ -31,12 +34,10 @@ const Login = () => {
     );
   }
 
-  if (guser) {
-    console.log(guser);
+  if (guser || user) {
+    navigte(from, { replace: true });
   }
-  if (user) {
-    console.log(user);
-  }
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="card w-96 bg-base-100 shadow-xl">
