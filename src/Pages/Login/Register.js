@@ -1,50 +1,80 @@
-import React from "react";
+import React from 'react';
 import {
-  useSignInWithEmailAndPassword,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
-import { useForm } from "react-hook-form";
-import Loading from "../Shared/Loading";
-import { Link } from "react-router-dom";
+ 
+    useSignInWithGoogle,
+  } from "react-firebase-hooks/auth";
+  import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+  import { useUpdateProfile } from 'react-firebase-hooks/auth';
 
-const Login = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
-  const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
-    console.log(data);
-  };
-  let errorMessage;
-  if (loading || gloading) {
-    return <Loading></Loading>;
-  }
-  if (error || gerror) {
-    errorMessage = (
-      <p className="text-red-500 my-5">{error?.message || gerror?.message}</p>
-    );
-  }
-
-  if (guser) {
-    console.log(guser);
-  }
-  if (user) {
-    console.log(user);
-  }
-  return (
-    <div className="flex justify-center items-center h-screen">
+  import auth from "../../firebase.init";
+  import { useForm } from "react-hook-form";
+  import Loading from "../Shared/Loading";
+  import { Link } from "react-router-dom";
+const Register = () => {
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
+      const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+      } = useForm();
+   
+      const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+      const onSubmit = (data) => {
+        createUserWithEmailAndPassword(data.email,data.password);
+        console.log(data);
+      };
+      let errorMessage;
+      if (loading || gloading||updating) {
+        return <Loading></Loading>;
+      }
+      if (error || gerror||updateError) {
+        errorMessage = (
+          <p className="text-red-500 my-5">{error?.message || gerror?.message||updateError?.message}</p>
+        );
+      }
+    
+      if (guser) {
+        console.log(guser);
+      }
+      if (user) {
+        console.log(user);
+      }
+    return (
+        <div className="flex justify-center items-center h-screen">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title justify-center text-3xl">Login</h2>
+          <h2 className="card-title justify-center text-3xl">Register</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Your Name"
+                class="input input-bordered w-full max-w-xs"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Name is required!",
+                  },
+                  
+                })}
+              />
+                 <label class="label">
+                {errors.name?.type === "required" && (
+                  <span class="label-text-alt text-red-500">
+                    {errors.name.message}
+                  </span>
+                )}
+              </label>
               <label class="label">
                 <span class="label-text">Email</span>
               </label>
@@ -117,9 +147,9 @@ const Login = () => {
             />
           </form>
           <p>
-            New to Doctors Portal?{" "}
-            <Link to="/register" className="text-secondary">
-              Create new account
+            Already have an account?{" "}
+            <Link to="/login" className="text-secondary">
+             Please Login
             </Link>
           </p>
           <div className="divider">OR</div>
@@ -132,7 +162,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default Login;
+export default Register;
