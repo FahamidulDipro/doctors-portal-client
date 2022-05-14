@@ -2,9 +2,13 @@ import React from "react";
 import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-const BookingModal = ({ date, treatment }) => {
-  const [user,loading] = useAuthState(auth);
+import { toast } from "react-toastify";
+
+const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
+  const [user, loading] = useAuthState(auth);
   const { _id, name, slots } = treatment;
+
+  const formattedDate = format(date, "PP");
   const handleBooking = (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
@@ -12,14 +16,44 @@ const BookingModal = ({ date, treatment }) => {
     const email = event.target.email.value;
     const phone = event.target.phone.value;
     console.log(_id, slot, name, email, phone);
+
+    //Data for posting to the collection
+    const booking = {
+      treatmentId: treatment._id,
+      treatment: treatment.name,
+      date: formattedDate,
+      slot: slot,
+      patientName: user.displayName,
+      phone: event.target.phone.value,
+    };
+
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          toast("Appoinment is set in", { formattedDate }, "at ", { slot });
+        } else {
+          toast.error("Appoinment already exists!");
+        }
+        refetch();
+        setTreatment(null);
+        console.log(result);
+      });
   };
+
   return (
     <div>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative">
           <label
-            htmlFor="booking-modal"
+            htmlhtmlFor="booking-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
@@ -34,8 +68,11 @@ const BookingModal = ({ date, treatment }) => {
               disabled
               className="input input-bordered w-full max-w-xs my-2"
             />
-            <select name="slot" className="select select-bordered w-full max-w-xs">
-              {slots.map((slot,index) => (
+            <select
+              name="slot"
+              className="select select-bordered w-full max-w-xs"
+            >
+              {slots.map((slot, index) => (
                 <option key={index}>{slot}</option>
               ))}
             </select>
