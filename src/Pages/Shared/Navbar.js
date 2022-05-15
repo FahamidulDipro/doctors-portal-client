@@ -4,18 +4,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "./Loading";
- 
+
 const Navbar = () => {
-  const [user,loading,error] = useAuthState(auth)
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  if(loading){
-    return <Loading></Loading>
+  if (loading) {
+    return <Loading></Loading>;
   }
 
   const logout = () => {
     signOut(auth);
-    navigate('/login');
-
+    navigate("/login");
   };
   const menuItems = (
     <>
@@ -35,18 +34,23 @@ const Navbar = () => {
       <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
-    {
-      user&&   <li>
-      <NavLink to="/dashboard">Dashboard</NavLink>
-    </li>
-    }
-      {
-        user?<button className="btn btn-ghost " onClick={logout}>Logout</button>:<span>  <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-    </span>
-      }
-    
+      {user && (
+        <li>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </li>
+      )}
+      {user ? (
+        <button className="btn btn-ghost " onClick={logout}>
+          Logout
+        </button>
+      ) : (
+        <span>
+          {" "}
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+        </span>
+      )}
     </>
   );
   return (
@@ -82,6 +86,28 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+      </div>
+      <div className="navbar-end">
+        <label
+          htmlFor="dashboardSidebar"
+          tabIndex="1"
+          className="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
       </div>
     </div>
   );

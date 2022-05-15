@@ -24,6 +24,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       date: formattedDate,
       slot: slot,
       patientName: user.displayName,
+      email: user.email,
       phone: event.target.phone.value,
     };
 
@@ -53,7 +54,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       <div className="modal">
         <div className="modal-box relative">
           <label
-            htmlhtmlFor="booking-modal"
+            htmlFor="booking-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
