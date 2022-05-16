@@ -13,6 +13,7 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import MyAppoinments from "./Pages/DashBoard/MyAppoinments";
 import MyReview from "./Pages/DashBoard/MyReview";
 import MyHistory from "./Pages/DashBoard/MyHistory";
+import Users from "./Pages/DashBoard/Users";
 function App() {
   return (
     <div className="App ">
@@ -41,6 +42,7 @@ function App() {
           <Route index element={<MyAppoinments></MyAppoinments>}></Route>
           <Route path="review" element={<MyReview></MyReview>}></Route>
           <Route path="myhistory" element={<MyHistory></MyHistory>}></Route>
+          <Route path="users" element={<Users></Users>}></Route>
         </Route>
       </Routes>
       <ToastContainer />
