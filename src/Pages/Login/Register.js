@@ -11,6 +11,7 @@ import {
   import Loading from "../Shared/Loading";
   import { Link, useNavigate } from "react-router-dom";
 import { async } from '@firebase/util';
+import useToken from '../../hooks/useToken';
 const Register = () => {
     const [
         createUserWithEmailAndPassword,
@@ -26,14 +27,17 @@ const Register = () => {
       } = useForm();
    
       const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
-
+      const [token] = useToken(user||guser);
       const navigate =useNavigate();
       const onSubmit = async(data) => {
         await createUserWithEmailAndPassword(data.email,data.password);
         await updateProfile({ displayName:data.name });
         console.log(data);
-        navigate('/appoinment');
+        
       };
+      if(token){
+        navigate('/appoinment');
+      }
       let errorMessage;
       if (loading || gloading||updating) {
         return <Loading></Loading>;
@@ -50,6 +54,8 @@ const Register = () => {
       if (user) {
         console.log(user);
       }
+
+
     return (
         <div className="flex justify-center items-center h-screen">
       <div className="card w-96 bg-base-100 shadow-xl">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
@@ -7,11 +7,16 @@ import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const navigte = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
+  
+
+
+  
   const {
     register,
     formState: { errors },
@@ -20,6 +25,12 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+  const [token]  = useToken(user||guser);
+  useEffect(()=>{
+    if (token) {
+      navigte(from, { replace: true });
+    }
+   },[token,from,navigte])
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
     console.log(data);
@@ -34,9 +45,7 @@ const Login = () => {
     );
   }
 
-  if (guser || user) {
-    navigte(from, { replace: true });
-  }
+
 
   return (
     <div className="flex justify-center items-center h-screen">
