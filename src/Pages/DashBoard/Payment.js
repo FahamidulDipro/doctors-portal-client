@@ -20,8 +20,11 @@ const Payment = () => {
     return <Loading></Loading>;
   }
   return (
-    <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card w-96 bg-base-100 shadow-xl mt-10">
       <div class="card-body">
+        <h1 className="text-3xl  font-bold text-left">
+          Hello! {appoinment.patientName}
+        </h1>
         <h2 class="card-title">
           Pay For <span className="text-secondary">{appoinment.treatment}</span>
         </h2>
@@ -31,8 +34,11 @@ const Payment = () => {
           at{" "}
           <span className="text-orange-500 font-bold"> {appoinment.slot}</span>
         </p>
+        <p>
+          Please pay <span className="font-bold">${appoinment.price}</span>
+        </p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
+          <button class="btn btn-secondary text-white">Pay Now</button>
         </div>
       </div>
     </div>
