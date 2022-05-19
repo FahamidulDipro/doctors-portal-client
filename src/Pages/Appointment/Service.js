@@ -7,6 +7,7 @@ const Service = ({ service, setTreatment }) => {
     <div className="card w-3/4 bg-base-100 shadow-xl container mx-auto mt-10">
       <div className="card-body ">
         <h2 className="card-title  text-secondary justify-center">{name}</h2>
+        <p><b>Price </b> ${service.price}</p>
         <p>
           {slots.length > 1 ? (
             <span>{slots[0]}</span>

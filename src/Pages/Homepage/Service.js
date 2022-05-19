@@ -10,6 +10,8 @@ const Service = ({ service }) => {
       <div className="card-body items-center text-center">
         <h2 className="card-title">{service.name}</h2>
         <p>{service.descriptionn}</p>
+ 
+        
       </div>
     </div>
   );
