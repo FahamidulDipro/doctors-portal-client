@@ -14,6 +14,7 @@ import MyAppoinments from "./Pages/DashBoard/MyAppoinments";
 import MyReview from "./Pages/DashBoard/MyReview";
 import MyHistory from "./Pages/DashBoard/MyHistory";
 import Users from "./Pages/DashBoard/Users";
+import Payment from "./Pages/DashBoard/Payment";
 function App() {
   return (
     <div className="App ">
@@ -43,6 +44,7 @@ function App() {
           <Route path="review" element={<MyReview></MyReview>}></Route>
           <Route path="myhistory" element={<MyHistory></MyHistory>}></Route>
           <Route path="users" element={<Users></Users>}></Route>
+          <Route path="payment/:appoinmentId" element={<Payment></Payment>}></Route>
         </Route>
       </Routes>
       <ToastContainer />
