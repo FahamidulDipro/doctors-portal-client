@@ -5,7 +5,7 @@ import auth from "../../firebase.init";
 import useAdmin from "../../hooks/useAdmin";
 
 const DashBoard = () => {
-  const user = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [admin] = useAdmin(user);
   return (
     <div>

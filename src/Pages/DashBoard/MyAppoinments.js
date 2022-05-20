@@ -31,7 +31,7 @@ const MyAppoinments = () => {
   return (
     <div>
       <h1>My Appoinments: {appoinments.length}</h1>
-      {console.log(appoinments)}
+      {/* {console.log(appoinments)} */}
       <div className="overflow-x-auto">
         <table className="table w-full">
           {/* <!-- head --> */}
@@ -47,15 +47,15 @@ const MyAppoinments = () => {
           </thead>
           <tbody>
             {appoinments.map((appoinment, index) => (
-              <tr>
+              <tr key={appoinment._id}>
                 <th>{index + 1}</th>
                 <td>{appoinment.patientName}</td>
                 <td>{appoinment.date}</td>
                 <td>{appoinment.slot}</td>
                 <td>{appoinment.treatment}</td>
-                {
+                {/* {
                   console.log(appoinment)
-                }
+                } */}
                 <td>{(appoinment?.price&& !appoinment?.paid) &&<Link to={`/dashboard/payment/${appoinment._id}`}><button className="btn btn-xl btn-success">Pay</button></Link>}{(appoinment?.price&& appoinment?.paid) &&<span className="font-bold text-success">Paid</span>}</td>
                 
               </tr>
